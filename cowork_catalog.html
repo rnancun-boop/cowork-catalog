@@ -1,0 +1,908 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Claude CoWork 活用カタログ</title>
+<link href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@400;500;700;900&family=Noto+Sans+JP:wght@300;400;500;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --ink: #0f0f14;
+  --ink-mid: #3a3a4a;
+  --ink-light: #7a7a90;
+  --ink-faint: #b8b8cc;
+  --rule: #e4e4ee;
+  --paper: #fafafa;
+  --white: #ffffff;
+  --accent: #1a56f0;
+  --accent-light: #eef2fe;
+  --accent-mid: #6b8ef5;
+
+  /* category colors */
+  --c1: #1a56f0; /* doc */
+  --c2: #0ea56c; /* data */
+  --c3: #e05a1a; /* sales */
+  --c4: #9b27d4; /* support */
+  --c5: #d42780; /* mail */
+  --c6: #c49a00; /* content */
+  --c7: #0094b8; /* schedule */
+  --c8: #2e9e40; /* training */
+  --c9: #7a4af0; /* research */
+  --c10: #d4501a; /* idea */
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  background: var(--paper);
+  color: var(--ink);
+  font-family: 'Noto Sans JP', sans-serif;
+  font-size: 14px;
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ── HEADER ── */
+.site-header {
+  background: var(--white);
+  border-bottom: 2px solid var(--ink);
+  padding: 0 40px;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.header-inner {
+  max-width: 1280px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  height: 64px;
+  gap: 32px;
+}
+
+.logo {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  flex-shrink: 0;
+}
+
+.logo-mark {
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--white);
+  background: var(--ink);
+  padding: 3px 8px;
+  letter-spacing: .06em;
+  border-radius: 3px;
+}
+
+.logo-name {
+  font-family: 'Zen Kaku Gothic New', sans-serif;
+  font-weight: 900;
+  font-size: 18px;
+  letter-spacing: -.02em;
+  color: var(--ink);
+}
+
+.header-search {
+  flex: 1;
+  max-width: 360px;
+  display: flex;
+  align-items: center;
+  border: 1.5px solid var(--rule);
+  border-radius: 8px;
+  padding: 0 14px;
+  gap: 8px;
+  background: var(--paper);
+  transition: border-color .2s;
+}
+
+.header-search:focus-within { border-color: var(--accent); }
+
+.search-icon { color: var(--ink-faint); font-size: 14px; flex-shrink: 0; }
+
+.header-search input {
+  border: none;
+  background: transparent;
+  font-family: 'Noto Sans JP', sans-serif;
+  font-size: 13px;
+  color: var(--ink);
+  width: 100%;
+  outline: none;
+}
+
+.header-search input::placeholder { color: var(--ink-faint); }
+
+.header-meta {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  flex-shrink: 0;
+}
+
+.meta-stat {
+  text-align: right;
+}
+
+.meta-num {
+  font-family: 'DM Mono', monospace;
+  font-size: 20px;
+  font-weight: 500;
+  color: var(--ink);
+  line-height: 1;
+}
+
+.meta-label {
+  font-size: 10px;
+  color: var(--ink-light);
+  letter-spacing: .06em;
+}
+
+.meta-divider { width: 1px; height: 32px; background: var(--rule); }
+
+/* ── HERO ── */
+.hero {
+  background: var(--ink);
+  color: var(--white);
+  padding: 72px 40px 64px;
+  position: relative;
+  overflow: hidden;
+}
+
+.hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 39px,
+    rgba(255,255,255,.04) 39px,
+    rgba(255,255,255,.04) 40px
+  ),
+  repeating-linear-gradient(
+    90deg,
+    transparent,
+    transparent 79px,
+    rgba(255,255,255,.04) 79px,
+    rgba(255,255,255,.04) 80px
+  );
+}
+
+.hero-inner {
+  max-width: 1280px;
+  margin: 0 auto;
+  position: relative;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 40px;
+  align-items: end;
+}
+
+.hero-eyebrow {
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  letter-spacing: .14em;
+  color: rgba(255,255,255,.45);
+  margin-bottom: 20px;
+  text-transform: uppercase;
+}
+
+.hero h1 {
+  font-family: 'Zen Kaku Gothic New', sans-serif;
+  font-weight: 900;
+  font-size: clamp(32px, 5vw, 60px);
+  letter-spacing: -.03em;
+  line-height: 1.1;
+  margin-bottom: 20px;
+}
+
+.hero h1 em {
+  font-style: normal;
+  color: #6b8ef5;
+}
+
+.hero-body {
+  font-size: 15px;
+  color: rgba(255,255,255,.6);
+  max-width: 480px;
+  line-height: 1.8;
+}
+
+.hero-badges {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  align-items: flex-end;
+}
+
+.hero-badge {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: rgba(255,255,255,.08);
+  border: 1px solid rgba(255,255,255,.12);
+  border-radius: 8px;
+  padding: 12px 18px;
+  white-space: nowrap;
+}
+
+.badge-icon { font-size: 20px; }
+.badge-text { font-size: 12px; color: rgba(255,255,255,.7); }
+.badge-num {
+  font-family: 'DM Mono', monospace;
+  font-size: 22px;
+  font-weight: 500;
+  color: var(--white);
+  margin-left: 8px;
+}
+
+/* ── CATEGORY TABS ── */
+.tab-bar {
+  background: var(--white);
+  border-bottom: 1.5px solid var(--rule);
+  padding: 0 40px;
+  position: sticky;
+  top: 64px;
+  z-index: 90;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+.tab-bar::-webkit-scrollbar { display: none; }
+
+.tab-bar-inner {
+  max-width: 1280px;
+  margin: 0 auto;
+  display: flex;
+  gap: 0;
+}
+
+.tab-btn {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  padding: 16px 20px;
+  font-family: 'Noto Sans JP', sans-serif;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--ink-light);
+  background: transparent;
+  border: none;
+  border-bottom: 2.5px solid transparent;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: color .2s, border-color .2s;
+  margin-bottom: -1.5px;
+}
+
+.tab-btn:hover { color: var(--ink); }
+.tab-btn.active { color: var(--ink); border-bottom-color: var(--ink); }
+
+.tab-btn .t-icon { font-size: 15px; }
+.tab-btn .t-count {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  background: var(--rule);
+  border-radius: 99px;
+  padding: 1px 6px;
+  color: var(--ink-mid);
+  transition: background .2s, color .2s;
+}
+.tab-btn.active .t-count { background: var(--ink); color: var(--white); }
+
+/* ── MAIN ── */
+.main {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 48px 40px 100px;
+}
+
+/* ── SECTION ── */
+.cat-section { display: none; }
+.cat-section.visible { display: block; }
+
+.section-header {
+  display: flex;
+  align-items: flex-end;
+  gap: 16px;
+  margin-bottom: 32px;
+  padding-bottom: 20px;
+  border-bottom: 1.5px solid var(--rule);
+}
+
+.section-icon {
+  width: 52px; height: 52px;
+  border-radius: 12px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 26px;
+  flex-shrink: 0;
+}
+
+.section-title {
+  font-family: 'Zen Kaku Gothic New', sans-serif;
+  font-weight: 900;
+  font-size: 26px;
+  letter-spacing: -.02em;
+  line-height: 1.2;
+}
+
+.section-desc {
+  font-size: 13px;
+  color: var(--ink-light);
+  margin-top: 4px;
+}
+
+.section-count {
+  font-family: 'DM Mono', monospace;
+  font-size: 12px;
+  color: var(--ink-faint);
+  margin-left: auto;
+  flex-shrink: 0;
+}
+
+/* ── FEATURE GRID ── */
+.feature-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 16px;
+  margin-bottom: 56px;
+}
+
+/* ── FEATURE CARD ── */
+.fcard {
+  background: var(--white);
+  border: 1.5px solid var(--rule);
+  border-radius: 12px;
+  padding: 24px;
+  transition: box-shadow .2s, border-color .2s, transform .2s;
+  cursor: default;
+}
+
+.fcard:hover {
+  box-shadow: 0 4px 24px rgba(0,0,0,.07);
+  transform: translateY(-2px);
+  border-color: var(--ink-faint);
+}
+
+.fcard-head {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.fcard-dot {
+  width: 10px; height: 10px;
+  border-radius: 50%;
+  margin-top: 6px;
+  flex-shrink: 0;
+}
+
+.fcard-title {
+  font-family: 'Zen Kaku Gothic New', sans-serif;
+  font-weight: 700;
+  font-size: 15px;
+  letter-spacing: -.01em;
+  line-height: 1.4;
+}
+
+.fcard-desc {
+  font-size: 12.5px;
+  color: var(--ink-mid);
+  line-height: 1.75;
+  margin-bottom: 16px;
+}
+
+.fcard-features {
+  list-style: none;
+  margin-bottom: 16px;
+}
+
+.fcard-features li {
+  font-size: 12px;
+  color: var(--ink-light);
+  padding: 3px 0;
+  padding-left: 14px;
+  position: relative;
+}
+
+.fcard-features li::before {
+  content: '–';
+  position: absolute;
+  left: 0;
+  color: var(--ink-faint);
+}
+
+.fcard-footer {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding-top: 14px;
+  border-top: 1px solid var(--rule);
+}
+
+.time-badge {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  font-weight: 500;
+  padding: 4px 10px;
+  border-radius: 5px;
+  background: var(--paper);
+  border: 1px solid var(--rule);
+  color: var(--ink-mid);
+}
+
+.scene-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+  margin-left: auto;
+}
+
+.scene-tag {
+  font-size: 10px;
+  padding: 2px 7px;
+  border-radius: 4px;
+  background: var(--paper);
+  color: var(--ink-light);
+  border: 1px solid var(--rule);
+}
+
+/* ── SEARCH STATE ── */
+.search-result-header {
+  font-family: 'DM Mono', monospace;
+  font-size: 12px;
+  color: var(--ink-light);
+  margin-bottom: 24px;
+  letter-spacing: .04em;
+}
+
+.no-results {
+  text-align: center;
+  padding: 80px 40px;
+  color: var(--ink-faint);
+}
+
+.no-results .nr-icon { font-size: 48px; margin-bottom: 16px; }
+.no-results p { font-size: 14px; }
+
+/* highlight */
+mark {
+  background: #fef08a;
+  color: inherit;
+  border-radius: 2px;
+  padding: 0 1px;
+}
+
+/* ── RESPONSIVE ── */
+@media (max-width: 768px) {
+  .site-header { padding: 0 16px; }
+  .hero { padding: 48px 16px 40px; }
+  .hero-inner { grid-template-columns: 1fr; }
+  .hero-badges { flex-direction: row; align-items: flex-start; flex-wrap: wrap; }
+  .tab-bar { padding: 0 16px; }
+  .main { padding: 32px 16px 60px; }
+  .header-meta { display: none; }
+}
+
+/* fade in */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.fcard { animation: fadeIn .35s ease both; }
+</style>
+</head>
+<body>
+
+<!-- ── HEADER ── -->
+<header class="site-header">
+  <div class="header-inner">
+    <div class="logo">
+      <span class="logo-mark">CoWork</span>
+      <span class="logo-name">活用カタログ</span>
+    </div>
+    <div class="header-search">
+      <span class="search-icon">🔍</span>
+      <input type="text" id="searchInput" placeholder="機能を検索（例：議事録、営業メール…）">
+    </div>
+    <div class="header-meta">
+      <div class="meta-stat">
+        <div class="meta-num">10</div>
+        <div class="meta-label">カテゴリ</div>
+      </div>
+      <div class="meta-divider"></div>
+      <div class="meta-stat">
+        <div class="meta-num">44</div>
+        <div class="meta-label">活用パターン</div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- ── HERO ── -->
+<section class="hero">
+  <div class="hero-inner">
+    <div>
+      <p class="hero-eyebrow">Claude CoWork — Automation Catalog 2025</p>
+      <h1>Claudeに頼める<br><em>すべての業務</em>、<br>ここにあります。</h1>
+      <p class="hero-body">「これもAIに任せられるの？」と思ったとき、このカタログを開いてください。ドキュメント作成から市場調査、採用まで──10カテゴリ・44パターンの活用事例を網羅しています。</p>
+    </div>
+    <div class="hero-badges">
+      <div class="hero-badge">
+        <span class="badge-icon">⚡</span>
+        <span class="badge-text">最大時短</span>
+        <span class="badge-num">70%</span>
+      </div>
+      <div class="hero-badge">
+        <span class="badge-icon">📋</span>
+        <span class="badge-text">カバー業務数</span>
+        <span class="badge-num">44</span>
+      </div>
+      <div class="hero-badge">
+        <span class="badge-icon">🔧</span>
+        <span class="badge-text">コーディング不要</span>
+        <span class="badge-num">0行</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── TAB BAR ── -->
+<nav class="tab-bar" id="tabBar">
+  <div class="tab-bar-inner">
+    <button class="tab-btn active" data-cat="all">すべて <span class="t-count">44</span></button>
+    <button class="tab-btn" data-cat="doc"><span class="t-icon">📄</span> ドキュメント <span class="t-count">6</span></button>
+    <button class="tab-btn" data-cat="data"><span class="t-icon">📊</span> データ分析 <span class="t-count">4</span></button>
+    <button class="tab-btn" data-cat="sales"><span class="t-icon">💼</span> 営業支援 <span class="t-count">5</span></button>
+    <button class="tab-btn" data-cat="support"><span class="t-icon">🤝</span> カスタマー対応 <span class="t-count">4</span></button>
+    <button class="tab-btn" data-cat="mail"><span class="t-icon">📧</span> メールマーケ <span class="t-count">4</span></button>
+    <button class="tab-btn" data-cat="content"><span class="t-icon">🎨</span> コンテンツ制作 <span class="t-count">4</span></button>
+    <button class="tab-btn" data-cat="schedule"><span class="t-icon">📅</span> タスク管理 <span class="t-count">4</span></button>
+    <button class="tab-btn" data-cat="training"><span class="t-icon">🎓</span> 研修・教育 <span class="t-count">4</span></button>
+    <button class="tab-btn" data-cat="research"><span class="t-icon">🔍</span> リサーチ <span class="t-count">4</span></button>
+    <button class="tab-btn" data-cat="idea"><span class="t-icon">💡</span> 企画・アイデア <span class="t-count">4</span></button>
+    <button class="tab-btn" data-cat="hr"><span class="t-icon">👥</span> 人事・採用 <span class="t-count">1</span></button>
+  </div>
+</nav>
+
+<!-- ── MAIN ── -->
+<main class="main" id="main">
+
+  <!-- ALL / SEARCH results container -->
+  <div id="searchView" style="display:none">
+    <p class="search-result-header" id="searchResultLabel"></p>
+    <div class="feature-grid" id="searchGrid"></div>
+    <div class="no-results" id="noResults" style="display:none">
+      <div class="nr-icon">🔎</div>
+      <p>「<span id="noResultsQuery"></span>」に一致する機能は見つかりませんでした。</p>
+    </div>
+  </div>
+
+  <!-- ── CATEGORY SECTIONS ── -->
+
+  <!-- 1. ドキュメント -->
+  <section class="cat-section visible" id="sec-all"><!-- handled by JS --></section>
+
+  <section class="cat-section" id="sec-doc">
+    <div class="section-header">
+      <div class="section-icon" style="background:#eef3ff">📄</div>
+      <div>
+        <div class="section-title">ドキュメント作成・編集</div>
+        <div class="section-desc">会議録・報告書・提案書・契約書など、あらゆる文書作成をAIが代行</div>
+      </div>
+      <span class="section-count">6 機能</span>
+    </div>
+    <div class="feature-grid" id="grid-doc"></div>
+  </section>
+
+  <section class="cat-section" id="sec-data">
+    <div class="section-header">
+      <div class="section-icon" style="background:#eefaf4">📊</div>
+      <div>
+        <div class="section-title">データ分析・レポート</div>
+        <div class="section-desc">売上・顧客・市場データから洞察を引き出し、レポートまで自動生成</div>
+      </div>
+      <span class="section-count">4 機能</span>
+    </div>
+    <div class="feature-grid" id="grid-data"></div>
+  </section>
+
+  <section class="cat-section" id="sec-sales">
+    <div class="section-header">
+      <div class="section-icon" style="background:#fff3ee">💼</div>
+      <div>
+        <div class="section-title">営業支援</div>
+        <div class="section-desc">営業メール・見積書・商談準備など、受注活動を強力にバックアップ</div>
+      </div>
+      <span class="section-count">5 機能</span>
+    </div>
+    <div class="feature-grid" id="grid-sales"></div>
+  </section>
+
+  <section class="cat-section" id="sec-support">
+    <div class="section-header">
+      <div class="section-icon" style="background:#f8f0ff">🤝</div>
+      <div>
+        <div class="section-title">カスタマーサポート</div>
+        <div class="section-desc">FAQ・問い合わせ対応・チャットボット設計でサポート品質を底上げ</div>
+      </div>
+      <span class="section-count">4 機能</span>
+    </div>
+    <div class="feature-grid" id="grid-support"></div>
+  </section>
+
+  <section class="cat-section" id="sec-mail">
+    <div class="section-header">
+      <div class="section-icon" style="background:#fff0f6">📧</div>
+      <div>
+        <div class="section-title">メールマーケティング</div>
+        <div class="section-desc">ニュースレター・キャンペーンメール・効果測定まで一気通貫で対応</div>
+      </div>
+      <span class="section-count">4 機能</span>
+    </div>
+    <div class="feature-grid" id="grid-mail"></div>
+  </section>
+
+  <section class="cat-section" id="sec-content">
+    <div class="section-header">
+      <div class="section-icon" style="background:#fffbee">🎨</div>
+      <div>
+        <div class="section-title">コンテンツ制作</div>
+        <div class="section-desc">ブログ・SNS・プレスリリース・ホワイトペーパーの下書きを即生成</div>
+      </div>
+      <span class="section-count">4 機能</span>
+    </div>
+    <div class="feature-grid" id="grid-content"></div>
+  </section>
+
+  <section class="cat-section" id="sec-schedule">
+    <div class="section-header">
+      <div class="section-icon" style="background:#eefaff">📅</div>
+      <div>
+        <div class="section-title">スケジュール・タスク管理</div>
+        <div class="section-desc">会議調整・タスク優先度・進捗レポートで「管理業務」をスリム化</div>
+      </div>
+      <span class="section-count">4 機能</span>
+    </div>
+    <div class="feature-grid" id="grid-schedule"></div>
+  </section>
+
+  <section class="cat-section" id="sec-training">
+    <div class="section-header">
+      <div class="section-icon" style="background:#edfaef">🎓</div>
+      <div>
+        <div class="section-title">研修・教育</div>
+        <div class="section-desc">研修資料・eラーニング・テスト問題を短時間で高品質に仕上げる</div>
+      </div>
+      <span class="section-count">4 機能</span>
+    </div>
+    <div class="feature-grid" id="grid-training"></div>
+  </section>
+
+  <section class="cat-section" id="sec-research">
+    <div class="section-header">
+      <div class="section-icon" style="background:#f4f0ff">🔍</div>
+      <div>
+        <div class="section-title">リサーチ・情報収集</div>
+        <div class="section-desc">業界動向・論文・Webサイト情報を整理し、使えるインサイトへ変換</div>
+      </div>
+      <span class="section-count">4 機能</span>
+    </div>
+    <div class="feature-grid" id="grid-research"></div>
+  </section>
+
+  <section class="cat-section" id="sec-idea">
+    <div class="section-header">
+      <div class="section-icon" style="background:#fff4f0">💡</div>
+      <div>
+        <div class="section-title">企画・アイデア創出</div>
+        <div class="section-desc">ブレスト支援・企画書作成・施策立案・コピー生成で発想をカタチに</div>
+      </div>
+      <span class="section-count">4 機能</span>
+    </div>
+    <div class="feature-grid" id="grid-idea"></div>
+  </section>
+
+  <section class="cat-section" id="sec-hr">
+    <div class="section-header">
+      <div class="section-icon" style="background:#eef8ff">👥</div>
+      <div>
+        <div class="section-title">人事・採用</div>
+        <div class="section-desc">求人票・面接設計・評価シート・研修資料で人事業務をスマートに</div>
+      </div>
+      <span class="section-count">4 機能</span>
+    </div>
+    <div class="feature-grid" id="grid-hr"></div>
+  </section>
+
+</main>
+
+<script>
+// ── DATA ──
+const FEATURES = [
+  // ── DOC ──
+  { cat:'doc', color:'#1a56f0', title:'議事録の自動生成', desc:'会議の音声・文字起こしから、決定事項・アクションアイテムを含む構造化済み議事録を即生成。', features:['日時・参加者・議題の自動抽出','決定事項とアクションの明確化','社内標準フォーマットへのカスタマイズ'], time:'30〜60分/回', scenes:['定例会議','営業MTG','取締役会'] },
+  { cat:'doc', color:'#1a56f0', title:'報告書の作成', desc:'月次・週次レポートのデータ投入からグラフ解説・トレンド考察まで自動生成。', features:['グラフ・チャートの説明文生成','前年比・前月比の自動計算と考察','トレンド分析の追加'], time:'2〜4時間/本', scenes:['営業報告','経営報告','進捗報告'] },
+  { cat:'doc', color:'#1a56f0', title:'提案書の作成', desc:'顧客の業界・課題に応じてカスタマイズされた提案書の下書きを作成。価格プランや導入スケジュールも自動提案。', features:['課題に応じた提案内容生成','価格プランの最適化提案','導入スケジュールの自動作成'], time:'3〜6時間/件', scenes:['新規提案','アップセル提案'] },
+  { cat:'doc', color:'#1a56f0', title:'契約書の下書き', desc:'取引内容に応じた条項を自動選択し、法務レビューのための下書きを生成。リスク項目チェックリストも付属。', features:['条項の自動選択','リスク項目チェックリスト生成','過去契約書からの学習'], time:'2〜3時間/件', scenes:['業務委託契約','NDA','売買契約'] },
+  { cat:'doc', color:'#1a56f0', title:'マニュアル作成', desc:'業務手順やシステム操作をステップバイステップのマニュアルに整形。FAQ形式への変換も可能。', features:['手順書の論理的整理','FAQ形式への変換','図解の説明文作成'], time:'4〜8時間/本', scenes:['業務マニュアル','操作マニュアル','新人研修'] },
+  { cat:'doc', color:'#1a56f0', title:'翻訳業務', desc:'100以上の言語に対応。専門用語・業界用語を正確に、文脈を考慮した自然な翻訳を実現。', features:['100言語以上対応','専門用語の正確な翻訳','文脈考慮の自然な翻訳'], time:'15〜30分/ページ', scenes:['海外向け提案書','多言語Webサイト','国際契約'] },
+
+  // ── DATA ──
+  { cat:'data', color:'#0ea56c', title:'売上分析レポート', desc:'売上データから推移・前年比・セグメント別分析を実施し、視覚的なレポートと今後の見通しを自動生成。', features:['売上推移の自動グラフ化','セグメント別分析（商品別・地域別）','予測モデルによる今後の見通し'], time:'3〜5時間/本', scenes:['月次営業会議','四半期レビュー','経営会議'] },
+  { cat:'data', color:'#0ea56c', title:'顧客データ分析', desc:'RFM分析・LTV計算・チャーン率分析など、顧客データベースから深いインサイトを引き出す。', features:['顧客セグメンテーション（RFM分析）','LTV・チャーン率の算出','優良顧客の特徴抽出'], time:'4〜6時間/回', scenes:['マーケ戦略立案','顧客育成計画'] },
+  { cat:'data', color:'#0ea56c', title:'市場調査の整理', desc:'収集した大量データを整理・可視化し、市場トレンド・競合比較マトリックスを含むレポートに仕上げる。', features:['重要情報の自動抽出','市場トレンドの可視化','競合比較マトリックスの作成'], time:'5〜10時間/回', scenes:['新規事業検討','市場参入調査'] },
+  { cat:'data', color:'#0ea56c', title:'競合分析', desc:'競合他社の強み・弱み・価格・ポジショニングを整理し、差別化ポイントまで提案する比較分析レポートを作成。', features:['強み・弱みの分析','価格比較とポジショニング','差別化ポイントの提案'], time:'3〜6時間/回', scenes:['営業戦略立案','商品開発','マーケ施策'] },
+
+  // ── SALES ──
+  { cat:'sales', color:'#e05a1a', title:'営業メールの作成', desc:'顧客の業界・課題・フェーズに応じてパーソナライズされた営業メールを自動生成。A/Bテスト用の複数案も可。', features:['業界・課題別カスタマイズ','適切なトーン・スタイル選択','A/Bテスト用複数案生成'], time:'10〜20分/通', scenes:['新規開拓','フォローアップ','商談後お礼'] },
+  { cat:'sales', color:'#e05a1a', title:'フォローアップリマインダー', desc:'商談ステージに応じた最適なフォロータイミングと内容を提案。パーソナライズメッセージ案も同時生成。', features:['商談ステージ別フォロー提案','最適タイミングの算出','パーソナライズメッセージ案'], time:'顧客管理を50%削減', scenes:['案件管理','顧客関係維持'] },
+  { cat:'sales', color:'#e05a1a', title:'見積書作成', desc:'商品・サービス情報から価格表を参照して自動計算。割引条件の適用・複数プランの同時生成に対応。', features:['価格表からの自動計算','割引条件の適用','複数プランの同時生成'], time:'20〜40分/件', scenes:['商談中','提案書作成時'] },
+  { cat:'sales', color:'#e05a1a', title:'顧客情報の整理', desc:'名刺・商談メモを構造化してCRMに登録。OCRによるデータ化・重要情報抽出・自動タグ付けに対応。', features:['名刺OCRとデータ化','メモからの重要情報抽出','顧客属性の自動タグ付け'], time:'5〜10分/件', scenes:['展示会後','商談後整理'] },
+  { cat:'sales', color:'#e05a1a', title:'商談準備資料', desc:'顧客の業界動向の要約・想定質問と回答案・提案すべきソリューションを整理した商談前資料を自動作成。', features:['顧客業界動向の要約','想定質問と回答案','提案ソリューションの提示'], time:'1〜2時間/商談', scenes:['重要商談前','提案準備'] },
+
+  // ── SUPPORT ──
+  { cat:'support', color:'#9b27d4', title:'FAQの自動生成', desc:'問い合わせ履歴を分析して類似質問をグルーピング。わかりやすい回答文を自動作成しFAQページを構築。', features:['問い合わせ内容の分類・集計','類似質問のグルーピング','回答文の自動作成'], time:'5〜10時間/回', scenes:['サポート効率化','Webサイト掲載'] },
+  { cat:'support', color:'#9b27d4', title:'問い合わせ対応の下書き', desc:'顧客からの問い合わせ内容を自動理解し、過去の類似対応を参照した適切な回答の下書きを作成。', features:['問い合わせ内容の自動理解','類似対応からの回答案生成','トーン調整（丁寧・カジュアル）'], time:'10〜15分/件', scenes:['カスタマーサポート','クレーム対応'] },
+  { cat:'support', color:'#9b27d4', title:'チャットボット応答設計', desc:'チャットボット用の会話シナリオ・応答パターン・エスカレーション条件を設計。導入時間を大幅短縮。', features:['会話フローの設計','Q&Aセットの一括作成','エスカレーション条件の設定'], time:'10〜20時間/プロジェクト', scenes:['チャットボット導入','サポート自動化'] },
+  { cat:'support', color:'#9b27d4', title:'クレーム分析', desc:'クレーム内容を分類・集計し、発生頻度の高い問題と根本原因を分析。改善提案まで含めたレポートを生成。', features:['クレームの分類・集計','発生頻度の高い問題の特定','根本原因の分析と改善提案'], time:'3〜5時間/回', scenes:['品質改善','顧客満足度向上'] },
+
+  // ── MAIL ──
+  { cat:'mail', color:'#d42780', title:'ニュースレター作成', desc:'顧客セグメントに応じた内容・件名・CTAを最適化したニュースレターを自動生成。', features:['セグメント別内容カスタマイズ','件名とコンテンツの生成','CTA（行動喚起）の最適化'], time:'1〜2時間/通', scenes:['定期メルマガ','キャンペーン告知'] },
+  { cat:'mail', color:'#d42780', title:'キャンペーンメールの最適化', desc:'件名A/Bテスト案・コンテンツ改善提案・送信タイミング最適化提案を同時に提示し、効果を最大化。', features:['件名A/Bテスト案生成','コンテンツ改善提案','送信タイミング最適化'], time:'2〜4時間/キャンペーン', scenes:['プロモーション','新商品発表'] },
+  { cat:'mail', color:'#d42780', title:'セグメント別コンテンツ生成', desc:'複数の顧客セグメントそれぞれに最適化されたメールコンテンツを一括生成。パーソナライゼーション要素も自動挿入。', features:['セグメント特徴に応じたメッセージ','パーソナライゼーション挿入','複数セグメント用コンテンツ一括生成'], time:'30〜60分/セグメント', scenes:['ターゲットマーケ','顧客育成'] },
+  { cat:'mail', color:'#d42780', title:'メール効果測定レポート', desc:'開封率・クリック率・コンバージョンデータを分析し、次回施策への改善提案を含むレポートを作成。', features:['開封率・クリック率の分析','コンバージョンデータの可視化','次回施策への改善提案'], time:'2〜3時間/レポート', scenes:['キャンペーン振り返り','戦略見直し'] },
+
+  // ── CONTENT ──
+  { cat:'content', color:'#c49a00', title:'ブログ記事の下書き', desc:'SEOを考慮したキーワード設計から、読みやすい記事の下書きと関連トピック提案まで一気通貫で対応。', features:['キーワードに基づいた記事構成','読みやすい文章の生成','関連トピックの提案'], time:'2〜4時間/記事', scenes:['コンテンツマーケ','SEO対策'] },
+  { cat:'content', color:'#c49a00', title:'SNS投稿文の作成', desc:'X（Twitter）・Instagram・LinkedInなど各プラットフォームに最適化した投稿文とハッシュタグを複数バリエーション生成。', features:['プラットフォーム別文体調整','ハッシュタグの提案','複数バリエーションの生成'], time:'10〜20分/投稿', scenes:['SNSマーケ','ブランディング'] },
+  { cat:'content', color:'#c49a00', title:'プレスリリース作成', desc:'標準フォーマットに沿ってニュースの重要情報を適切に配置。引用コメント作成も支援。', features:['標準フォーマット適用','重要情報の適切な配置','引用コメントの作成支援'], time:'1〜2時間/本', scenes:['新商品発表','企業発表','メディア対応'] },
+  { cat:'content', color:'#c49a00', title:'ホワイトペーパー作成', desc:'技術情報を平易な表現に変換し、論理的な構成・図表提案・説明文まで含む専門文書を作成。', features:['技術情報の平易な表現変換','論理的な構成設計','図表提案と説明文作成'], time:'10〜20時間/本', scenes:['リード獲得','専門性アピール'] },
+
+  // ── SCHEDULE ──
+  { cat:'schedule', color:'#0094b8', title:'会議のスケジュール調整', desc:'参加者の空き時間を抽出し、優先度に基づいた複数の日程候補と会議招集メールの下書きを同時に生成。', features:['参加者の空き時間抽出','優先度に基づいた日程提案','招集メールの下書き作成'], time:'15〜30分/会議', scenes:['会議設定','PJキックオフ'] },
+  { cat:'schedule', color:'#0094b8', title:'タスクの優先順位付け', desc:'緊急度・重要度・依存関係を考慮し、複数タスクを実行可能な順序で整理。日々の業務計画を最適化。', features:['緊急度・重要度の自動評価','依存関係の考慮','実行可能な順序での整理'], time:'30〜60分/回', scenes:['プロジェクト管理','日常業務計画'] },
+  { cat:'schedule', color:'#0094b8', title:'プロジェクト進捗レポート', desc:'タスク完了率・遅延タスク・リスクと課題をまとめたステークホルダー向けの進捗レポートを自動生成。', features:['タスク完了率の自動計算','遅延タスクの洗い出し','リスクと課題の整理'], time:'1〜2時間/レポート', scenes:['プロジェクト定例','経営報告'] },
+  { cat:'schedule', color:'#0094b8', title:'リマインダー最適化', desc:'タスク種別に応じた効果的なリマインダータイミングを提案。繰り返しタスクの自動設定にも対応。', features:['タスク種別に応じた設定','繰り返しタスクの自動設定','複数段階のリマインダー提案'], time:'タスク管理効率30%向上', scenes:['個人生産性向上','チーム管理'] },
+
+  // ── TRAINING ──
+  { cat:'training', color:'#2e9e40', title:'研修資料の作成', desc:'学習目標に基づくカリキュラム設計・スライド資料・演習問題を一括生成。新人研修からスキルアップまで対応。', features:['カリキュラム設計','スライド資料の生成','演習問題と解説の作成'], time:'5〜10時間/研修', scenes:['新入社員研修','スキルアップ研修'] },
+  { cat:'training', color:'#2e9e40', title:'eラーニングコンテンツ作成', desc:'モジュール単位の学習内容設計・クイズ自動生成・評価基準作成でオンライン学習環境を迅速に構築。', features:['モジュール単位の学習設計','クイズ・テストの自動生成','学習進捗の評価基準作成'], time:'10〜20時間/コース', scenes:['社内教育','顧客向けトレーニング'] },
+  { cat:'training', color:'#2e9e40', title:'業務マニュアル作成', desc:'業務手順を論理的に整理し、よくある質問を追加した実用的なマニュアルを作成。新システム導入時にも活躍。', features:['手順の論理的整理','図解の提案と説明文作成','よくある質問の追加'], time:'3〜8時間/本', scenes:['新システム導入','業務標準化'] },
+  { cat:'training', color:'#2e9e40', title:'テストの自動生成', desc:'選択式・記述式など多様な問題形式で難易度調整が可能。解答と解説も自動生成し、教育効果を最大化。', features:['多様な問題形式の生成','難易度の調整','解答と解説の自動作成'], time:'1〜2時間/テスト', scenes:['研修効果測定','資格試験対策'] },
+
+  // ── RESEARCH ──
+  { cat:'research', color:'#7a4af0', title:'業界動向のサマリー', desc:'大量のニュース・レポートから重要トレンドを抽出し、時系列で整理したサマリーを自動作成。', features:['ニュース記事・レポートの自動要約','重要トピックの抽出','時系列での整理'], time:'2〜4時間/回', scenes:['経営会議資料','戦略立案'] },
+  { cat:'research', color:'#7a4af0', title:'特許・論文の要約', desc:'技術的内容を平易な表現に変換し、重要ポイントと関連文献を整理したわかりやすい要約を作成。', features:['技術内容の平易化','重要ポイントの抽出','関連文献の整理'], time:'30〜60分/文書', scenes:['技術調査','研究開発'] },
+  { cat:'research', color:'#7a4af0', title:'Webサイトの情報整理', desc:'複数サイトから情報を収集・カテゴリ別に構造化して整理。情報源の明記で信頼性も確保。', features:['重要情報の自動抽出','カテゴリ別の分類','情報源の明記'], time:'2〜5時間/調査', scenes:['市場調査','競合分析'] },
+  { cat:'research', color:'#7a4af0', title:'ニュースのキュレーション', desc:'キーワードに基づいて関連ニュースを自動収集・重要度順に整理。カスタマイズ可能な配信形式に対応。', features:['キーワードによる自動収集','重要度の自動評価','カスタマイズ可能な配信形式'], time:'1〜2時間/日（削減）', scenes:['朝会での共有','週次レビュー'] },
+
+  // ── IDEA ──
+  { cat:'idea', color:'#d4501a', title:'ブレインストーミング支援', desc:'テーマに対して多角的な視点からアイデアを生成し、分類・グルーピング・実現可能性の評価まで実施。', features:['多角的視点からのアイデア提案','アイデアの分類とグルーピング','実現可能性の評価'], time:'1〜2時間/セッション', scenes:['新規事業検討','商品開発','問題解決'] },
+  { cat:'idea', color:'#d4501a', title:'企画書の下書き', desc:'背景・目的・実施計画・予算概算を含む企画書の構造を整理し、説得力ある文書に仕上げる。', features:['企画の背景と目的の整理','実施計画の立案','予算・リソースの概算'], time:'3〜6時間/本', scenes:['新規PJ提案','イベント企画'] },
+  { cat:'idea', color:'#d4501a', title:'マーケティング施策の提案', desc:'顧客セグメント・チャネル選定・KPI設定を含む効果的なマーケティング施策を提案。', features:['顧客セグメント別施策立案','チャネル選定の提案','KPI設定の支援'], time:'2〜4時間/施策', scenes:['マーケ戦略立案','キャンペーン企画'] },
+  { cat:'idea', color:'#d4501a', title:'ネーミング・キャッチコピー生成', desc:'商品やサービスの魅力を伝える複数のネーミング案・キャッチコピーを生成。商標チェックポイントも提示。', features:['複数バリエーション提案','ターゲットに響く表現の選定','商標チェックポイントの提示'], time:'2〜5時間/PJ', scenes:['新商品開発','ブランディング','広告制作'] },
+
+  // ── HR ──
+  { cat:'hr', color:'#4a90d9', title:'求人票・採用書類の作成', desc:'職種に応じた求人票・面接質問リスト・評価シートをまとめて自動作成。採用プロセス全体の設計を支援。', features:['職種別求人情報の作成','ポジション別面接質問の提案','従業員評価フレームワーク作成'], time:'2〜4時間/採用ポジション', scenes:['採用準備','面接設計','評価制度整備'] },
+];
+
+// ── RENDER ──
+function makeCard(f, query='') {
+  const hl = t => query ? t.replace(new RegExp(query.replace(/[.*+?^${}()|[\]\\]/g,'\\$&'), 'gi'), m => `<mark>${m}</mark>`) : t;
+  const scenes = f.scenes.map(s => `<span class="scene-tag">${s}</span>`).join('');
+  const items = f.features.map(ft => `<li>${hl(ft)}</li>`).join('');
+  return `
+    <div class="fcard">
+      <div class="fcard-head">
+        <div class="fcard-dot" style="background:${f.color}"></div>
+        <div class="fcard-title">${hl(f.title)}</div>
+      </div>
+      <p class="fcard-desc">${hl(f.desc)}</p>
+      <ul class="fcard-features">${items}</ul>
+      <div class="fcard-footer">
+        <div class="time-badge">⏱ ${f.time}</div>
+        <div class="scene-tags">${scenes}</div>
+      </div>
+    </div>`;
+}
+
+function renderGrid(id, cats, query='') {
+  const data = Array.isArray(cats)
+    ? FEATURES.filter(f => cats.includes(f.cat))
+    : FEATURES;
+  const el = document.getElementById(id);
+  if (!el) return;
+  el.innerHTML = data.map(f => makeCard(f, query)).join('');
+}
+
+// render all category grids
+['doc','data','sales','support','mail','content','schedule','training','research','idea','hr']
+  .forEach(cat => renderGrid(`grid-${cat}`, [cat]));
+
+// ── TABS ──
+const tabs = document.querySelectorAll('.tab-btn');
+const sections = document.querySelectorAll('.cat-section');
+const searchView = document.getElementById('searchView');
+const searchInput = document.getElementById('searchInput');
+
+function showCat(cat) {
+  searchView.style.display = 'none';
+  searchInput.value = '';
+  tabs.forEach(t => t.classList.toggle('active', t.dataset.cat === cat));
+
+  if (cat === 'all') {
+    sections.forEach(s => {
+      s.classList.remove('visible');
+    });
+    // render all in a single flat grid
+    let html = `<div class="feature-grid">` + FEATURES.map(f => makeCard(f)).join('') + `</div>`;
+    // use #sec-all as container
+    const secAll = document.getElementById('sec-all');
+    secAll.innerHTML = html;
+    secAll.classList.add('visible');
+  } else {
+    const secAll = document.getElementById('sec-all');
+    secAll.classList.remove('visible');
+    sections.forEach(s => {
+      const show = s.id === `sec-${cat}`;
+      s.classList.toggle('visible', show);
+    });
+  }
+}
+
+tabs.forEach(tab => {
+  tab.addEventListener('click', () => showCat(tab.dataset.cat));
+});
+
+// show all by default
+showCat('all');
+
+// ── SEARCH ──
+searchInput.addEventListener('input', () => {
+  const q = searchInput.value.trim();
+  if (!q) {
+    showCat('all');
+    return;
+  }
+
+  // hide normal sections, show search view
+  sections.forEach(s => s.classList.remove('visible'));
+  tabs.forEach(t => t.classList.remove('active'));
+  searchView.style.display = 'block';
+
+  const results = FEATURES.filter(f =>
+    [f.title, f.desc, ...f.features, ...f.scenes].join(' ')
+      .toLowerCase().includes(q.toLowerCase())
+  );
+
+  const grid = document.getElementById('searchGrid');
+  const label = document.getElementById('searchResultLabel');
+  const noRes = document.getElementById('noResults');
+  const noQ = document.getElementById('noResultsQuery');
+
+  if (results.length) {
+    label.textContent = `"${q}" の検索結果 — ${results.length} 件`;
+    grid.innerHTML = results.map(f => makeCard(f, q)).join('');
+    grid.style.display = 'grid';
+    noRes.style.display = 'none';
+  } else {
+    label.textContent = '';
+    grid.style.display = 'none';
+    noQ.textContent = q;
+    noRes.style.display = 'block';
+  }
+});
+</script>
+</body>
+</html>
